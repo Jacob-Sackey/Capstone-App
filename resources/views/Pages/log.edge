@@ -1,0 +1,115 @@
+@layout('layout.master')
+@section('content')
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Stuff</h1>
+          </div>
+        </div>
+
+         <div class="row">
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Logs</h3>
+                <div class="pull-right">
+                <a href="/newlog" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+                </div>
+              </div>
+
+
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                  <tr>
+
+                    <th>Date</th>
+                    <th>Supplier</th>
+                    <th>Quantity</th>
+                    <th>Comments</th>
+                  </tr>
+
+
+                  @each(log in logs)
+
+                  <tr>
+                    <td>{{log.date}}</td>
+                    <td>{{log.supplier}}</td>
+                    <td>{{log.quantity}}</td>
+                    <td>{{log.comments}}</td>
+
+                    <td>
+                    <a href="/logs/view/{{log.id}}" class="btn btn-info"><i class="fa fa-eye"></i></a>
+
+                    <a href="/logs/edit/{{log.id}}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                    <a  class="btn btn-danger delete-log" id="{{log.id}}"><i class="fa fa-trash"></i></a>
+                    <a href="/log/view/{{log.id}}" class="btn btn-success"><i class="fa fa-wpforms"></i></a>
+                    </td>
+
+
+
+                  @endeach
+
+
+
+                  </tr>
+
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div><!-- /.row -->
+</div>
+
+
+
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+  </div>
+@endsection
+
+
+
+
+@section('scripts')
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(document).on('click','.delete-log',function(e){
+            e.preventDefault();
+            const token = '{{ csrfToken }}';
+            const id = $(this).attr('id');
+                swal({
+                title: "Are you sure?",
+                text: "log will be removed permanently.Do you wish to proceed?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                })
+                .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                     url: '{{route('log.delete')}}',
+                     type: 'DELETE',
+                     data: {_csrf:token,id:id},
+                     success: function(response){
+                      if(response.status === 'success'){
+                       swal('log successfully deleted','success')
+                       location.reload()
+
+                      }
+                     }
+                    });
+                } else {
+                    swal("log not deleted");
+                }
+                });
+        });
+    });
+</script>
+@endsection

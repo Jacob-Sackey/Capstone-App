@@ -1,0 +1,65 @@
+@layout('layout.master')
+@section('content')
+   <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Log View</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item" ><a href="/logs"  class="btn btn-primary">Previous Page</a></li>
+
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <div class="card card-default">
+          <div class="card-header">
+            <h3 class="card-title">log Details</h3>
+
+
+          </div>
+
+          <form role="form" action="" method="POST">
+               {{csrfField()}}
+                <div class="card-body">
+                 <div class="form-group">
+                    <label for="date">Date</label>
+                    <p>{{log.date}}</p>
+                  </div>
+                <div class="form-group">
+                    <label for="supplier">Supplier</label>
+                    <p>{{log.supplier}}</p>
+                  </div>
+                  <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <p>{{log.quantity}}</p>
+                  </div>
+                  <div class="form-group">
+                    <label for="comments">Comments</label>
+                    <p>{{log.comments}}</p>
+                  </div>
+
+
+
+
+                </div>
+
+                <!-- /.card-body -->
+
+              </form>
+
+            </div>
+
+
+
+
+
+    </div>
+@endsection
+

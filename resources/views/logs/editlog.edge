@@ -1,0 +1,71 @@
+@layout('layout.master')
+@section('content')
+    <div class="content-wrapper">
+    <section class="content-header">
+    <div class="container-fluid">
+    <div class="row mb-2">
+    <div class="col-sm-6">
+  <h2>Add Site</h2>
+  </div>
+  <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href ="/logs" class="btn btn-primary">Previous Page</a></li>
+        </ol>
+  </div>
+  </div>
+  </div>
+  </section>
+                <!-- general form elements disabled -->
+            <div class="card card-warning">
+              <div class="card-header">
+                <h3 class="card-title">Site info</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <form role="form" action="{{'/logs/update/' + logs.id +' ?_method=PUT'}}" method="POST">
+                {{csrfField()}}
+
+                <!-- text input -->
+                  <div class="form-group" >
+                    <label>Date</label>
+                    <input type="text" name="date"class="form-control" placeholder="Enter ..." value="{{logs.date}}" >
+                    {{elIf('<span style="color:red">$self</span>',getErrorFor('date'),hasErrorFor('date'))}}
+                  </div>
+
+                  <div class="form-group">
+                    <label>Supplier</label>
+                    <input type="text" name="supplier"class="form-control" placeholder="Enter ..." value="{{logs.supplier}}">
+                    {{elIf('<span style="color:red">$self</span>',getErrorFor('supplier'),hasErrorFor('supplier'))}}
+                  </div>
+
+                  <div class="form-group">
+                    <label>Quantity</label>
+                    <textarea class="form-control" name="quantity" rows="3" placeholder="{{logs.quantity}}" ></textarea>
+                    {{elIf('<span style="color:red">$self</span>',getErrorFor('quantity'),hasErrorFor('quantity'))}}
+                  </div>
+
+                  <div class="form-group">
+                    <label>Comments</label>
+                    <input type="text" name="comments"class="form-control" placeholder="dd/mm/yyyy" value="{{logs.comments}}">
+                    {{elIf('<span style="color:red">$self</span>',getErrorFor('comments'),hasErrorFor('comments'))}}
+                  </div>
+
+
+
+
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+
+
+
+
+                </form>
+              </div>
+
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+
+@endsection

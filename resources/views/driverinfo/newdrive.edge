@@ -1,0 +1,76 @@
+@layout('layout.master')
+
+@section('content')
+  <div class="content-wrapper">
+    <section class="content-header">
+    <div class="container-fluid">
+    <div class="row mb-2">
+    <div class="col-sm-6">
+  <h2>Add Driver Information</h2>
+  </div>
+  <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href ="/driverinfo" class="btn btn-primary">Previous Page</a></li>
+        </ol>
+  </div>
+  </div>
+  </div>
+  </section>
+                <!-- general form elements disabled -->
+            <div class="card card-warning">
+              <div class="card-header">
+                <h3 class="card-title">Driver info</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <form role="form" action="{{route('driverinfos.save')}}" method="POST">
+                {{csrfField()}}
+
+                <!-- text input -->
+                  <div class="form-group" >
+                    <label>Driver ID</label>
+                    <input type="text" name="name"class="form-control" placeholder="Enter ..." >
+                    {{elIf('<span style="color:red">$self</span>',getErrorFor('name'),hasErrorFor('name'))}}
+                  </div>
+
+                  <div class="form-group">
+                    <label>Date of Birth</label>
+                    <input type="text" name="DOB"class="form-control" placeholder="Enter ...">
+                    {{elIf('<span style="color:red">$self</span>',getErrorFor('DOB'),hasErrorFor('DOB'))}}
+                  </div>
+
+                  <div class="form-group">
+                    <label>Licence Number</label>
+                    <textarea class="form-control" name="lic_num" rows="3" placeholder="Enter ..."></textarea>
+                    {{elIf('<span style="color:red">$self</span>',getErrorFor('lic_num'),hasErrorFor('lic_num'))}}
+                  </div>
+
+                  <div class="form-group">
+                    <label>route</label>
+                    <input type="text" name="route"class="form-control" placeholder="Enter...">
+                    {{elIf('<span style="color:red">$self</span>',getErrorFor('route'),hasErrorFor('route'))}}
+                  </div>
+
+                  <div class="form-group">
+                    <label>Truck ID</label>
+                    <input type="text" name="truck_id"class="form-control" placeholder="enter truck ID ">
+                    {{elIf('<span style="color:red">$self</span>',getErrorFor('truck_id'),hasErrorFor('truck_id'))}}
+                  </div>
+
+
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+
+
+
+
+                </form>
+              </div>
+
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+</div>
+@endsection
