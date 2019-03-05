@@ -3,7 +3,7 @@
 const Env = use('Env')
 const Helpers = use('Helpers')
 const url = require('url')
-const DB_URL = url.parse(process.env.CLEARDB_DATABASE_URL)
+const DB_URL = url.parse(Env.get('CLEARDB_DATABASE_URL'))
 const DB_AUTH = (DB_URL.auth || ':').split('')
 
 module.exports = {
@@ -50,11 +50,11 @@ module.exports = {
   mysql: {
     client: 'mysql',
     connection: {
-      host: DB_URL.host || Env.get('DB_HOST', 'localhost'),
-      port: DB_URL.port||Env.get('DB_PORT', ''),
-      user: DB_AUTH[0]||Env.get('DB_USER', 'root'),
-      password: DB_AUTH[1] || Env.get('DB_PASSWORD', ''),
-      database: DB_URL.pathname.substr(1)|| Env.get('DB_DATABASE', 'adonis')
+      host: Env.get('DB_HOST', DB_URL.host, 'localhost'),
+      port: Env.get('DB_PORT', DB_URL.port,''),
+      user: Env.get('DB_USER', DB_AUTH[0], 'root'),
+      password: Env.get('DB_PASSWORD',DB_AUTH[1], ''),
+      database: Env.get('DB_DATABASE',DB_URL.pathname.substr(1), 'adonis')
     }
   },
 
